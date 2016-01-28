@@ -13,13 +13,13 @@ This software is build using nwjs.
 Packed the source in a zip (exclude ```/bin```). Rename your ```.zip``` in ```.nw```.
 
 ```
-nw ~/path/to/yourzip.nw/
+nw ~/path/to/yourzip.nw
 ```
 
 ### From the binary
 Download directly the .nw.
 ```
-nw ~/path/to/yourzip.nw/
+nw ~/path/to/yourzip.nw
 ```
 
 ## Screenshot
