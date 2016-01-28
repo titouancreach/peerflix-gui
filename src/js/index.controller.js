@@ -9,7 +9,8 @@
  */
 
 var PeerflixGUI = angular.module('PeerflixGUI', []);
-var exec = require('child_process').exec,
+var spawn = require('child_process').spawn,
+    exec = require('child_process').exec,
     child,
     ansiStrip = require('ansi-stripper');
 
@@ -31,7 +32,15 @@ function($scope) {
   $scope.listFile = function() {
     $scope.isLoading = true;
     $scope.$apply();
-    child = exec("peerflix -l \"" + $scope.fullTorrentUri + "\"", function(error, stdout, stderr) {
+    
+    var args = [
+     'peerflix',
+      '-l',
+      '\"' + $scope.fullTorrentUri + '\"'
+    ];
+
+    child = exec(args.join(" "), function(error, stdout, stderr) {
+      console.log(stdout);
       $scope.files = ansiStrip(stdout).split("\n");
       $scope.files.pop();
       $scope.isLoading = false;
@@ -54,19 +63,25 @@ function($scope) {
   $scope.startFilm = function() {
     if ($scope.selectedIndex === -1) { return; }
 
-    Materialize.toast('VLC will start soon, please, be patient', 3000, 'rounded');
-    if ($scope.keepTorrent) {
-      child = 
-        exec("peerflix -v -i " + $scope.selectedIndex + " \"" + $scope.fullTorrentUri + "\"" + " --path \"" + $scope.savePath + "\"", function(err, stdout, stderr) {
-        });
-    } else { 
-      child = 
-        exec("peerflix -v -i " + $scope.selectedIndex + " \"" + $scope.fullTorrentUri + "\"", function(err, stdout, stderr) {
-          console.log("executed!");
-        });
-    }
-  };
+    var args = [
+      '-v',
+      '-i ', $scope.selectedIndex,
+      $scope.fullTorrentUri
+    ];
 
+    Materialize.toast('VLC will start soon, please, be patient', 3000, 'rounded');
+
+    if ($scope.keepTorrent) {
+      args.push('--path');
+      args.push($scope.savePath);
+    }
+
+    child = spawn('peerflix', args);
+
+    child.stderr.on('data', function (data) {
+      Materialize.toast(data.toString('utf8'), 3000, 'rounded');
+    });
+  };
 }]);
 
 /**

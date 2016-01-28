@@ -3,7 +3,7 @@
   "main": "./src/html/index.html",
   "window": {
     "title": "Peerflix GUI",
-    "toolbar": false,
+    "toolbar": true,
     "show": true,
     "icon": "./src/icons/icon.png",
     "min_width": 500,
