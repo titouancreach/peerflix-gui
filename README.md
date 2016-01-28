@@ -2,7 +2,7 @@
 
 ## Motivation
 
-Originally for my girlfriend who have difficulties to use terminal :)
+Originally for my girlfriend who have difficulties to use the terminal :)
 
 ## Screenshot
 
