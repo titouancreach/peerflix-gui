@@ -1,0 +1,26 @@
+/**
+ * Author:       Titouan CREACH
+ * Email:        titouan.creach@gmail.com
+ * Filename:     style.css
+ * Date:         26/12/2015
+ * Purpose:      Style for index.html.
+ * Project:      Peerflix-GUI
+ * License:      GPLv3
+ */
+
+.min-margin {
+    margin: 20px 0 50px 0;
+}
+
+.left-margin {
+    margin: 0 0 0 100px; 
+}
+
+body {
+  background: #F1F1F1;
+}
+
+.moviesContainer {
+  float: left;
+  margin: 0 auto;
+}

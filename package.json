@@ -1,0 +1,18 @@
+{
+  "name": "Peerflix-gui",
+  "main": "./src/html/index.html",
+  "window": {
+    "title": "Peerflix GUI",
+    "toolbar": false,
+    "show": true,
+    "icon": "./src/icons/icon.png",
+    "min_width": 500,
+    "min_height": 500
+  },
+  "dependencies": {
+    "angular": "^1.4.8",
+    "ansi-stripper": "0.0.1",
+    "jquery": "^2.1.4",
+    "materialize-css": "^0.97.5"
+  }
+}

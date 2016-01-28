@@ -1,0 +1,120 @@
+<!--
+ - Author:       Titouan CREACH
+ - Email:        titouan.creach@gmail.com
+ - Filename:     index.html
+ - Date:         26/12/2015
+ - Purpose:      Description of the UI.
+ - Project:      Peerflix-GUI
+ - License:      GPLv3
+-->
+
+
+<!DOCTYPE html>
+
+<html ng-app="PeerflixGUI">
+  <head>
+    <link type="text/css" rel="stylesheet" href="../../node_modules/materialize-css/dist/css/materialize.min.css" media="screen,projection"/>
+    <link type="text/css" rel="stylesheet" href="../css/font.css"/>
+    <link type="text/css" rel="stylesheet" href="../css/style.css"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Peerflix GUI</title>
+  </head>
+
+  <body ng-controller="MainCtrl" id="body">
+    <div class="navbar-fixed light-green">
+      <nav>
+        <div class="nav-wrapper light-green">
+          <a class="brand-logo center" href="#">Peerflix-gui</a>
+        </div>
+      </nav>
+    </div>
+
+    <div class=row>
+      <div class="card-panel col s10 offset-s1 center">
+        <div class="row">
+          <form class="col s12" action="#">
+            <div class="file-field input-field">
+              <div class="btn light-blue"> 
+                <span> file </span>
+                <input type="file" id="fileDialog" accept=".torrent">
+              </div>
+              <div class="file-path-wrapper">
+                <input class="file-path validate" type="text">
+              </div>
+            </div>
+          </form> 
+        </div>
+
+        <div class="row">
+          <div class="col s12">
+            <p> Keep the movie ? </p>
+            <div class="switch">
+              <label>
+                Off
+                <input type="checkbox" ng-model="keepTorrent" class="light-blue">
+                <span class="lever"></span>
+                On
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col s12">
+            <div ng-show="keepTorrent" class="file-field input-field">
+              <div class="btn light-blue">
+                <span>Save location</span>
+                <input type="file" webkitdirectory id="saveDialog"/>
+              </div>
+              <div class="file-path-wrapper">
+                <input class="file-path validate" type="text">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="center col s12" ng-show="isLoading">
+          <div class="preloader-wrapper big active ">
+            <div class="spinner-layer spinner-blue-only">
+              <div class="circle-clipper left">
+                <div class="circle"></div>
+              </div><div class="gap-patch">
+                <div class="circle"></div>
+              </div><div class="circle-clipper right">
+                <div class="circle"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class=row>
+      <div class="card-panel col s10 offset-s1">
+        <div ng-show="files.length" class="row">
+          <div>
+            <ul class="collection">
+              <li ng-repeat="item in files track by $index" class="collection-item hoverable">
+              <input name="fileList" type="radio" id="{{$index}}" ng-model="value" ng-change="onSelect({{$index}})" />
+              <label for="{{$index}}"> {{item}} </label>
+              <li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="col s12 center">
+          <a 
+            class="waves-effect waves-light btn-large center min-margin light-blue" 
+            ng-class="{'disabled': selectedIndex === -1}"
+            ng-click="startFilm()">Watch<i class="material-icons right">visibility</i></a>
+        </div>
+      </div>
+    </div>
+
+    <!-- script inclusion -->
+    <script type="text/javascript" src="../../node_modules/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="../../node_modules/materialize-css/dist/js/materialize.min.js"></script>
+    <script type="text/javascript" src="../../node_modules/angular/angular.min.js"></script>
+    <script type="text/javascript" src="../js/index.controller.js"></script>
+  </body>
+</html>
