@@ -13,12 +13,9 @@ var exec = require('child_process').exec,
     child,
     ansiStrip = require('ansi-stripper');
 
-var escapeShell = function(cmd) {
-  return '"' + cmd.replace(/(["\s'$`\\])/g,'\\$1') + '"';
-};
-
 PeerflixGUI.controller('MainCtrl', ['$scope', 
 function($scope) {
+  /* the full url of the torrent file */
   $scope.fullTorrentUri = "";
   $scope.files = [];
   $scope.selectedIndex = -1;
@@ -27,22 +24,33 @@ function($scope) {
   $scope.keepTorrent = false;
   $scope.savePath = "";
 
+  /**
+   * The function assign the list of the files included in the .torrent 
+   * to the variable $scope.files. The function also set the $scope.isLoading state.
+   */
   $scope.listFile = function() {
     $scope.isLoading = true;
     $scope.$apply();
     child = exec("peerflix -l \"" + $scope.fullTorrentUri + "\"", function(error, stdout, stderr) {
       $scope.files = ansiStrip(stdout).split("\n");
       $scope.files.pop();
-      console.log($scope.files);
       $scope.isLoading = false;
       $scope.$apply();
     });
   };
 
+  /**
+   * The function assign the id of the selected file to
+   * $scope.selectedIndex.
+   * @param {number} idx - The id of the files selected.
+   */
   $scope.onSelect = function(idx) {
     $scope.selectedIndex = idx;
   };
 
+  /**
+   * The function start the movie according the Id of the file
+   */
   $scope.startFilm = function() {
     if ($scope.selectedIndex === -1) { return; }
 
@@ -61,6 +69,9 @@ function($scope) {
 
 }]);
 
+/**
+ * The function connect the file chosen by the input and the scope.
+ */
 function chooseFile(name) {
   var chooser = $(name);
   chooser.unbind('change');
@@ -73,6 +84,10 @@ function chooseFile(name) {
 }
 chooseFile('#fileDialog');
 
+
+/**
+ * The function connect the location chosen for the saving and the scope.
+ */
 function saveFile(name) {
   var chooser = $(name);
   chooser.unbind('change');
